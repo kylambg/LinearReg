@@ -1,0 +1,21 @@
+library(MASS)
+#Setting number of sample
+n = 500
+#Setting default beta
+default_beta <- c(50,70,10)
+#Assume x is randomly draw from standard normal distribution
+x <- c(rnorm(n*2, mean = 0, sd = 1))
+x <- matrix(c(x,rep(1,n)), n, 3)
+#Error is randomly draw form standard normal distribution
+err = rnorm(n, mean = 0, sd = 1)
+#setting y
+y <- x%*%default_beta + err
+#applying least square apporach
+beta = ginv(t(x)%*%x)%*%t(x)%*%y
+#calculate t-value and p-value
+se = sqrt(diag((norm(y-x%*%beta,"2")^2)/(n-2-1)*ginv(t(x)%*%x)))
+t_value <- (beta)/se
+p_value <- 2*pt(abs(t_stat), n-1, FALSE)
+#Compare with library function
+g <- lm(y~x) 
+summary(g)
