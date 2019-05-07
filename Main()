@@ -1,3 +1,4 @@
+hehe<-function(){
 library(MASS)
 #Setting number of sample
 n = 500
@@ -19,3 +20,4 @@ p_value <- 2*pt(abs(t_stat), n-1, FALSE)
 #Compare with library function
 g <- lm(y~x) 
 summary(g)
+}
